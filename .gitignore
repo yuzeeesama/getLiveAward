@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Build artifacts
+dist/
+build/
+*.spec
+nuitka-crash-report.xml
+
+# Runtime data (contains sensitive cookies)
+data/bilibili_cookie.json
+data/logs/
