@@ -1,93 +1,28 @@
-# biliscripts
+# getLiveAward
 
-自动抢 Bilibili 直播奖励（CDKey / 兑换码）的桌面工具。支持多链接并发、多线程抢奖、掉线自动重登，基于 PySide6 构建 GUI。
+`getLiveAward` 是一个用于抢 Bilibili 直播奖励的桌面工具，支持扫码登录、多链接并发、自动重登和日志记录。
 
-## 功能
 
-- **扫码登录** — 模拟 B 站官方登录流程，Cookie 持久化存储，无需重复扫码
-- **多链接批量处理** — 支持同时添加多个活动链接，独立控制每条链接的暂停 / 恢复 / 取消
-- **多线程并发抢奖** — 每条链接可配置多个线程同时请求，抢到即停
-- **掉线自动重登** — 抢奖过程中 Cookie 失效时会自动弹出二维码重新登录，登录后继续抢
-- **日志记录** — 完整的时间戳日志输出到面板及 `data/logs/` 目录
+## 项目介绍
 
-## 截图（运行效果）
+适用于b站任意游戏的直播创作激励领取，输入活动链接后即可自动执行抢奖流程。
 
-启动后粘贴 Bilibili 活动链接，点击「全部开始」即可：
+## 使用方法
 
-```
-https://www.bilibili.com/blackboard/era/award-exchange.html?task_id=xxx
-```
+1. 在 Bilibili 复制奖励活动链接（注意是在领取界面的链接）
 
-> 链接来源：Bilibili 直播间的「礼物兑换」或「活动黑板」页面。
+   <img width="240" height="250" alt="图片" src="https://github.com/user-attachments/assets/812aad20-a07f-4f70-a20f-cd4ea5128653"/>
 
-## 环境要求
+2. 打开release下载的 `getLiveAward`
 
-- Python 3.10+
-- Windows / macOS / Linux
+3. 粘贴一条或多条链接 
 
-## 安装
+4. 点击“全部开始” 
 
-```bash
-# 克隆仓库
-git clone <repo-url>
-cd biliscripts
+5. 等待结果
 
-# 创建虚拟环境
-python -m venv .venv
-
-# 激活虚拟环境
-# Windows:
-.venv\Scripts\activate
-# macOS / Linux:
-source .venv/bin/activate
-
-# 安装依赖
-pip install -r requirements.txt
-```
-
-## 运行
-
-```bash
-python app.py
-```
-
-## 使用说明
-
-1. 打开 Bilibili 直播间，在活动面板中找到「奖励兑换」入口，复制链接地址
-2. 将链接粘贴到工具输入框中（支持多条）
-3. 点击 **全部开始**
-4. 若未登录，会弹出二维码窗口，使用 Bilibili 手机客户端扫码确认
-5. 工具自动获取奖励信息，进入抢奖状态（默认每链接 2 线程，重试 120 次）
-6. 抢到 CDKey 后弹窗显示结果
-
-## 项目结构
-
-```
-biliscripts/
-├── app.py                  # 入口文件
-├── requirements.txt        # 依赖清单
-├── core/                   # 核心逻辑
-│   ├── auth.py             # 扫码登录流程
-│   ├── client.py           # Bilibili API 客户端（WBI 签名、并发请求）
-│   ├── constants.py        # API 地址、配置常量、mixin key 表
-│   ├── errors.py           # 自定义异常
-│   ├── logging_utils.py    # 日志工具
-│   ├── models.py           # 数据模型与线程控制
-│   ├── service.py          # 抢奖流程编排
-│   └── storage.py          # Cookie 持久化
-├── ui/                     # GUI 层
-│   ├── main_window.py      # 主窗口
-│   ├── qr_dialog.py        # 二维码弹窗
-│   └── worker.py           # 后台线程 Worker
-└── data/                   # 运行时数据（gitignore）
-    ├── bilibili_cookie.json
-    └── logs/
-```
+程序会在当前目录创建 `data/` 用于保存 Cookie 和日志。
 
 ## 免责声明
 
 本工具仅供学习交流使用。请遵守 Bilibili 用户协议，使用者自行承担一切责任。
-
-## License
-
-MIT
