@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from typing import Optional
 
@@ -10,7 +11,12 @@ from .models import RuntimePaths
 
 
 def get_runtime_paths(base_dir: Optional[str] = None) -> RuntimePaths:
-    root_dir = base_dir or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if base_dir is not None:
+        root_dir = base_dir
+    elif getattr(sys, "frozen", False):
+        root_dir = os.path.dirname(os.path.abspath(sys.executable))
+    else:
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(root_dir, "data")
     logs_dir = os.path.join(data_dir, "logs")
     return RuntimePaths(
