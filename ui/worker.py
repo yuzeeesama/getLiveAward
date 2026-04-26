@@ -4,7 +4,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
 
-from PySide6.QtCore import QObject, Signal, Slot
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 from core.errors import BiliRewardCancelledError, BiliRewardError
 from core.logging_utils import format_log_line
@@ -20,13 +20,13 @@ from core.service import RewardService
 
 
 class ClaimWorker(QObject):
-    finished = Signal()
-    log_message = Signal(str)
-    status_changed = Signal(str)
-    qr_code_ready = Signal(int, object)
-    link_status_changed = Signal(int, str)
-    link_claim_stage_changed = Signal(int, bool)
-    batch_completed = Signal(object)
+    finished = pyqtSignal()
+    log_message = pyqtSignal(str)
+    status_changed = pyqtSignal(str)
+    qr_code_ready = pyqtSignal(int, object)
+    link_status_changed = pyqtSignal(int, str)
+    link_claim_stage_changed = pyqtSignal(int, bool)
+    batch_completed = pyqtSignal(object)
 
     def __init__(self, service: RewardService, link_tasks: list[LinkTaskItem]) -> None:
         super().__init__()
@@ -155,7 +155,7 @@ class ClaimWorker(QObject):
             return "已取消"
         return "失败"
 
-    @Slot()
+    @pyqtSlot()
     def run(self) -> None:
         self.status_changed.emit("运行中")
         self._emit_batch_log(f"共 {len(self.link_tasks)} 条链接，开始处理")
