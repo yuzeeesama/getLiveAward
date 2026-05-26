@@ -1,6 +1,6 @@
-# getLiveAward
+# GetLiveAward
 
-`getLiveAward` 是一个用于抢 Bilibili 直播奖励的桌面工具，支持扫码登录、多链接并发、自动重登和日志记录。
+`GetLiveAward` 是一个用于抢 Bilibili 直播奖励的桌面工具，支持扫码登录、多链接并发、自动重登和日志记录。
 
 
 ## 项目介绍
